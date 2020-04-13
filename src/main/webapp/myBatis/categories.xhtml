@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+>
+<h:head>
+    <title>Categories</title>
+</h:head>
+<h:body>
+    <h2>Categories:</h2>
+    <ul>
+        <ui:repeat value="#{categoriesMB.allCategories}" var="category">
+            <li>
+                <p>#{category.name}</p>
+                <ul>
+                    <ui:repeat value="#{category.exercises}" var="exercise">
+                        <li>
+                            <h:link value="#{exercise.name}" outcome="exercise?id=#{exercise.id}" />
+                        </li>
+                    </ui:repeat>
+                </ul>
+            </li>
+        </ui:repeat>
+        <li>
+            <p>Uncategorized exercises</p>
+                <ul>
+                    <ui:repeat value="#{categoriesMB.uncategorizedExercises}" var="exercise">
+                        <li>
+                            <h:link value="#{exercise.name}" outcome="exercise?id=#{exercise.id}" />
+                        </li>
+                    </ui:repeat>
+                </ul>
+        </li>
+    </ul>
+
+    <h:form>
+        <label>Category Name: </label>
+        <h:inputText value="#{categoriesMB.categoryToCreate.name}" required="true" />
+        <br/>
+        <h:commandButton action="#{categoriesMB.createCategory}" value="Create Category"/>
+    </h:form>
+    <br/>
+    <h:form>
+        <label>Exercise Name: </label>
+        <h:inputText value="#{categoriesMB.exerciseToCreate.name}" required="true" />
+        <br/>
+        <label>Category: </label>
+        <h:selectOneMenu value="#{categoriesMB.selectedCategoryId}">
+            <f:selectItems value="#{categoriesMB.allCategories}"
+                           var="category"
+                           itemLabel="#{category.name}"
+                           itemValue="#{category.id}">
+            </f:selectItems>
+        </h:selectOneMenu>
+        <br/>
+        <h:commandButton action="#{categoriesMB.createExercise}" value="Create Exercise"/>
+    </h:form>
+    <br/>
+    <h:link outcome="workouts" value="Workouts page"/>
+    <br/>
+    <h:link outcome="/index" value="Back"/>
+</h:body>
+</html>

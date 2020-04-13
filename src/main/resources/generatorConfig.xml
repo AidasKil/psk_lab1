@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="WorkoutDB" targetRuntime="MyBatis3Simple">
+        <jdbcConnection driverClass="org.h2.Driver"
+                        connectionURL="jdbc:h2:~/h2database/WorkoutDB;AUTO_SERVER=TRUE"
+                        userId="sa"
+                        password="sa">
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="mybatis.model" targetProject="src/main/java" />
+
+        <sqlMapGenerator targetPackage="resources/mybatis.xml" targetProject="src/main" />
+        <javaClientGenerator type="XMLMAPPER" targetPackage="mybatis.dao" targetProject="src/main/java" />
+
+
+        <table schema="public" tableName="category">
+            <generatedKey column="id" identity="true" sqlStatement="JDBC" />
+            <ignoreColumn column="opt_lock_version" />
+        </table>
+        <table schema="public" tableName="exercise">
+            <generatedKey column="id" identity="true" sqlStatement="JDBC" />
+            <ignoreColumn column="opt_lock_version" />
+        </table>
+        <table schema="public" tableName="exercise_category">
+            <generatedKey column="id" identity="true" sqlStatement="JDBC" />
+            <ignoreColumn column="opt_lock_version" />
+        </table>
+        <table schema="public" tableName="set">
+            <generatedKey column="id" identity="true" sqlStatement="JDBC" />
+            <ignoreColumn column="opt_lock_version" />
+        </table>
+        <table schema="public" tableName="workout">
+            <generatedKey column="id" identity="true" sqlStatement="JDBC" />
+            <ignoreColumn column="opt_lock_version" />
+        </table>
+    </context>
+</generatorConfiguration>
