@@ -8,6 +8,7 @@ import lombok.Setter;
 import persistence.ExerciseDAO;
 import persistence.SetDAO;
 import persistence.WorkoutDAO;
+import services.OneRepMaxCalculator;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
@@ -27,6 +28,9 @@ public class EditWorkout {
 
 	@Inject
 	WorkoutDAO workoutDAO;
+
+	@Inject
+	OneRepMaxCalculator ormCalculator;
 
 	@Getter
 	private Workout workout;
@@ -53,6 +57,11 @@ public class EditWorkout {
 
 	private void loadEntities() {
 		allExercises = exerciseDAO.findAll();
+	}
+
+	public String calculateOrm(int reps, double weight) {
+		double orm = ormCalculator.CalculateOneRepMax(reps, weight);
+		return String.format("%.2f", orm);
 	}
 
 	@Transactional

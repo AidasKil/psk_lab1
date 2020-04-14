@@ -18,6 +18,7 @@
                 <p>#{set.exercise.name}</p>
                 <p>Repetitions: #{set.repetitions}</p>
                 <p>Weight: #{set.weight} kg</p>
+                <p>Estimated ORM: #{editWorkout.calculateOrm(set.repetitions, set.weight)} kg</p>
             </li>
         </ui:repeat>
     </ul>
