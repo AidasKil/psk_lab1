@@ -28,7 +28,7 @@ public class EditExercise {
 	private Exercise exercise;
 
 	@Setter
-	@Getter// wip needs the setter?
+	@Getter
 	private Integer selectedCategoryId;
 
 	@PostConstruct
