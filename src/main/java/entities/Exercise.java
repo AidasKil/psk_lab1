@@ -18,6 +18,9 @@ import java.util.*;
 })
 @Table(name="EXERCISE")
 public class Exercise implements Serializable {
+    @Version
+    private Integer version;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -25,7 +28,7 @@ public class Exercise implements Serializable {
     @Column(unique = true)
     private String name;
 
-    @ManyToMany(mappedBy="exercises")
+    @ManyToMany(mappedBy="exercises", fetch = FetchType.EAGER)
     private List<Category> categories= new LinkedList();
 
     @OneToMany(mappedBy="exercise")

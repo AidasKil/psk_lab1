@@ -5,7 +5,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
->
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
     <title>Workout</title>
 </h:head>
@@ -18,7 +18,12 @@
                 <p>#{set.exercise.name}</p>
                 <p>Repetitions: #{set.repetitions}</p>
                 <p>Weight: #{set.weight} kg</p>
-                <p>Estimated ORM: #{editWorkout.calculateOrm(set.repetitions, set.weight)} kg</p>
+                <h:form>
+                    <h:outputText id="txt_count" value="Estimated ORM: #{ormCalculatorCache.getOrm(set.repetitions, set.weight)}" />
+                    <p:poll interval="1" update="txt_count" stop="#{!ormCalculatorCache.isCalculating(set.repetitions, set.weight)}">
+                        <f:param name="id" value="#{editWorkout.workout.id}" />
+                    </p:poll>
+                </h:form>
             </li>
         </ui:repeat>
     </ul>

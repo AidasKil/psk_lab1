@@ -8,7 +8,6 @@ import lombok.Setter;
 import persistence.ExerciseDAO;
 import persistence.SetDAO;
 import persistence.WorkoutDAO;
-import services.OneRepMaxCalculator;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
@@ -29,14 +28,12 @@ public class EditWorkout {
 	@Inject
 	WorkoutDAO workoutDAO;
 
-	@Inject
-	OneRepMaxCalculator ormCalculator;
 
 	@Getter
 	private Workout workout;
 
 	@Getter
-	private Set setToCreate;
+	private Set setToCreate = new Set();
 
 	@Getter
 	private List<Exercise> allExercises;
@@ -45,13 +42,13 @@ public class EditWorkout {
 	@Setter
 	private Integer selectedExerciseId;
 
+
 	@PostConstruct
 	public void init() {
 		Map<String, String> requestParameters =
 				FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		Integer workoutId = Integer.parseInt(requestParameters.get("id"));
 		workout = workoutDAO.findOne(workoutId);
-		setToCreate = new Set();
 		loadEntities();
 	}
 
@@ -59,13 +56,9 @@ public class EditWorkout {
 		allExercises = exerciseDAO.findAll();
 	}
 
-	public String calculateOrm(int reps, double weight) {
-		double orm = ormCalculator.CalculateOneRepMax(reps, weight);
-		return String.format("%.2f", orm);
-	}
-
 	@Transactional
 	public void createSet() {
+		init();
 		Exercise exercise = allExercises
 				.stream()
 				.filter(x -> x.getId() == selectedExerciseId)

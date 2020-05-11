@@ -5,6 +5,7 @@ import entities.Exercise;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import java.util.List;
 
 @ApplicationScoped
@@ -14,6 +15,11 @@ public class ExerciseDAO {
 
     public void persist(Exercise exercise) {
         entityManager.persist(exercise);
+    }
+
+    public void update(Exercise exercise) {
+        entityManager.merge(exercise);
+        entityManager.flush();
     }
 
     public List<Exercise> findAllUncategorized() {

@@ -14,6 +14,9 @@ import java.util.List;
         @NamedQuery(name = "Workout.findAll", query = "select w from Workout as w"),
 })
 public class Workout {
+    @Version
+    private Integer version;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans
-        xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
-                      http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd"
-        bean-discovery-mode="annotated">
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                  http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd"
+    bean-discovery-mode="annotated">
+    <alternatives>
+        <class>services.WelcomeMessageGenerator2</class>
+        <class>services.SlowORMCalculator</class>
+    </alternatives>
+    <interceptors>
+        <class>interceptors.Logger</class>
+    </interceptors>
+    <decorators>
+        <class>logging.TimestampDecorator</class>
+        <class>logging.MachineNameDecorator</class>
+    </decorators>
 </beans>

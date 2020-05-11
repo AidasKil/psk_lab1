@@ -11,6 +11,9 @@ import javax.persistence.*;
 @Setter
 @NamedQuery(name = "Set.findAll", query = "select c from Set as c")
 public class Set {
+    @Version
+    private Integer version;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

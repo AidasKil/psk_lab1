@@ -14,6 +14,9 @@ import java.util.List;
         @NamedQuery(name = "Category.findAll", query = "select c from Category as c"),
 })
 public class Category {
+    @Version
+    private Integer version;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -21,7 +24,7 @@ public class Category {
     @Column(unique = true)
     private String name;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "exercise_category",
         joinColumns = @JoinColumn(name = "category_id"),
